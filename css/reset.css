@@ -1,0 +1,56 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+* {
+  margin: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  min-height: 100vh;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+img,
+picture,
+svg,
+video {
+  display: block;
+  max-width: 100%;
+}
+
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+button {
+  background: none;
+}
+
+a {
+  color: inherit;
+}
+
+ul,
+ol {
+  list-style: none;
+  padding: 0;
+}
+
+table {
+  border-spacing: 0;
+}
+
+textarea {
+  resize: vertical;
+}
