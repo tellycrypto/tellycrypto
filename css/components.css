@@ -104,3 +104,7 @@
 .logo-accent {
   color: var(--accent);
 }
+
+.hidden {
+  display: none !important;
+}

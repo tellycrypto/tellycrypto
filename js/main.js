@@ -71,3 +71,50 @@ const sectionObserver = new IntersectionObserver(
 );
 
 sections.forEach((section) => sectionObserver.observe(section));
+
+const audioFab = document.getElementById("audioFab");
+const audioToggle = document.getElementById("audioToggle");
+const floatingAudio = document.getElementById("floatingAudio");
+const playIcon = document.querySelector(".audio-icon-play");
+const pauseIcon = document.querySelector(".audio-icon-pause");
+
+function syncAudioUI(isPlaying) {
+  if (!audioFab || !audioToggle || !playIcon || !pauseIcon) {
+    return;
+  }
+
+  audioFab.classList.toggle("is-playing", isPlaying);
+  audioToggle.setAttribute("aria-pressed", String(isPlaying));
+  audioToggle.setAttribute("aria-label", isPlaying ? "Pause TellyCrypto song" : "Play TellyCrypto song");
+  playIcon.classList.toggle("hidden", isPlaying);
+  pauseIcon.classList.toggle("hidden", !isPlaying);
+}
+
+audioToggle?.addEventListener("click", async () => {
+  if (!floatingAudio) {
+    return;
+  }
+
+  if (floatingAudio.paused) {
+    try {
+      await floatingAudio.play();
+    } catch (error) {
+      syncAudioUI(false);
+    }
+  } else {
+    floatingAudio.pause();
+  }
+});
+
+floatingAudio?.addEventListener("pause", () => syncAudioUI(false));
+floatingAudio?.addEventListener("play", () => syncAudioUI(true));
+floatingAudio?.addEventListener("ended", () => {
+  floatingAudio.currentTime = 0;
+  syncAudioUI(false);
+});
+
+if (floatingAudio) {
+  floatingAudio.pause();
+  floatingAudio.currentTime = 0;
+  syncAudioUI(false);
+}
